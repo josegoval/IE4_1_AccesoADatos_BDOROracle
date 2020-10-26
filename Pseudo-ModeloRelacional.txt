@@ -1,5 +1,7 @@
+(Necesitan constructores los objetos, el CRUD va por funciones y procedimientos)
 
-TALUMNOS
+
+TALUMNOS - TIPO_ALUMNO
 	PK	DNI VARCHAR2(10),
 		NOMBRE VARCHAR2(50),
 		+ DIRECCION TIPO_DIRECCION,		
