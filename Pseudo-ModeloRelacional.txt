@@ -15,11 +15,11 @@ TALUMNOS - TIPO_ALUMNO
 	+	TNOTAS	TIPO_TABLA_ANIDADA_NOTAS OF TIPO_NOTAS
 			TIPO_NOTAS ES OBJETO DE
 				PK REF	TIPO_ASIGNATURA,
-					NOTA1EV NUMBER(4,2), = null al crearse [no cuenta]
-					NOTA2EV NUMBER(4,2), = null al crearse [no cuenta]
-					NOTA3EV NUMBER(4,2), = null al crearse [no cuenta]
-					NOTAFJUN NUMBER(4,2), = null al crearse [no cuenta]
-					NOTASEPT NUMBER(4,2) = null al crearse [no cuenta]
+					NOTA1EV NUMBER(4,2), = -1 al crearse [no cuenta]
+					NOTA2EV NUMBER(4,2), = -1 al crearse [no cuenta]
+					NOTA3EV NUMBER(4,2), = -1 al crearse [no cuenta]
+					NOTAFJUN NUMBER(4,2), = -1 al crearse [no cuenta]
+					NOTASEPT NUMBER(4,2) = -1 al crearse [no cuenta]
 
 TASIGNATURAS - TIPO_ASIGNATURA
 	PK	COD_ASIG NUMBER(4), [módulo]
