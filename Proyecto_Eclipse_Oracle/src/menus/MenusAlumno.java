@@ -2,7 +2,9 @@ package menus;
 
 import java.time.LocalDate;
 
+import database.GetProcedures;
 import database.InsertFunctions;
+import database.UpdateFunctions;
 import ownLibrary.Introduce;
 import pojos.Alumno;
 import pojos.Curso;
@@ -78,4 +80,69 @@ public class MenusAlumno {
 		}
 	}
 	
+	/**
+	 * Menu interactivo y guiado para modificar un alumno en la base de datos.
+	 */
+	public static void modificarDatosAlumno() {
+		Alumno alumno = getAlumno();
+		
+		if (alumno == null) {
+			System.out.println("El alumno no existe o hubo algun error.");
+		} else {
+			System.out.println("¿Desea cambiar el nombre?");
+			if (MenusBasicos.introducirSiNo()) {
+				System.out.println("Introduzca el nuevo nombre");
+				alumno.setNombre(Introduce.stringRange(50, 2));
+			}
+			System.out.println("¿Desea cambiar la direccion?");
+			if (MenusBasicos.introducirSiNo()) {
+				System.out.println("Introduzca la nueva direccion del alumno:");
+				alumno.getDireccion().setDireccion(Introduce.stringRange(50, 2));
+				System.out.println("Introduzca la nueva poblacion del alumno:");
+				alumno.getDireccion().setPoblacion(Introduce.stringRange(50, 2));
+				System.out.println("Introduzca el nueva codigo postal del alumno:");
+				alumno.getDireccion().setCodpostal(Introduce.valueInt(99999, 10000));
+				System.out.println("Introduzca la nueva provincia del alumno:");
+				alumno.getDireccion().setProvincia(Introduce.stringRange(40, 2));
+			}
+			System.out.println("¿Desea cambiar los telefonos?");
+			if (MenusBasicos.introducirSiNo()) {
+				System.out.println("Introduzca el primer telefono del alumno:");
+				alumno.getTelefonos()[0] = Introduce.stringRange(15, 6);
+				System.out.println("Introduzca el segundo telefono del alumno:");
+				alumno.getTelefonos()[1] = Introduce.stringRange(15, 6);
+			}
+			System.out.println("¿Desea cambiar la fecha de nacimiento?");
+			if (MenusBasicos.introducirSiNo()) {
+				System.out.println("Introduzca la fecha de nacimiento del alumno:");
+				alumno.setFecha_nac(Introducir.introducirLocalDate());;
+			}
+			System.out.println("¿Desea cambiar el curso?");
+			if (MenusBasicos.introducirSiNo()) {
+				System.out.println(
+						"Introduzca el id del curso\n(Asegúrese de que exista el curso antes de añadirlo o podria dar error).");
+				alumno.getCurso().setId_curso(Introduce.valueInt(9999, 1000));
+			}
+		}
+		
+		// Se actualiza en la base de datos:
+		if (UpdateFunctions.updateAlumno(alumno)) {
+			System.out.println("Alumno actualizado con exito.");
+		} else {
+			System.out.println("No se pudo actualizar el Alumno a la base de datos.");
+		};
+	}
+	
+	/**
+	 * Metodo interactivo que lee un alumno de la base de datos.
+	 * @return Alumno leido, o null si hubo algun error.
+	 */
+	public static Alumno getAlumno() {
+		Alumno alumno;
+		
+		System.out.println("Introduzca el dni del alumno:");
+		alumno = GetProcedures.getAlumno(Introduce.stringRange(10, 8));
+		
+		return alumno;
+	}
 }

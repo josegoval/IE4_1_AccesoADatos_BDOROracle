@@ -148,7 +148,7 @@ public class UpdateFunctions {
 	 * @param curso Curso a actualizar.
 	 * @return true si se realizo con exito, false si hubo algun error.
 	 */
-	public static boolean createCurso(Curso curso) {
+	public static boolean updateCurso(Curso curso) {
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
 		CallableStatement cstmt = null;

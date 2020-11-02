@@ -44,13 +44,13 @@ public class MenusBasicos {
 				MenusAlumno.matricularAsignaturaAlumno();
 				break;
 			case 3:
-
+				MenusAsignatura.aniadirNuevaAsignatura();
 				break;
 			case 4:
-
+				MenusCurso.aniadirNuevoCurso();
 				break;
 			case 5:
-
+				MenusAlumno.modificarDatosAlumno();
 				break;
 			case 6:
 
