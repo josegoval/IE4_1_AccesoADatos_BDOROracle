@@ -70,7 +70,7 @@ public class InsertFunctions {
 	 * @param cod_asig codigo de la asignatura a matricular.
 	 * @return true si se realizo con exito, false si hubo algun error.
 	 */
-	public static boolean matricularAsignaturas(String dni, int cod_asig) {
+	public static boolean matricularAsignatura(String dni, int cod_asig) {
 		boolean resultado = false;
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();

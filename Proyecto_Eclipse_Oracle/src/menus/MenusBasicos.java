@@ -24,8 +24,69 @@ public class MenusBasicos {
 			return;
 		}
 
+		selecionYRepeticionDeOpciones();
+	}
+
+	public static void selecionYRepeticionDeOpciones() {
+		int opcion;
+		String mensaje = "¿Que desea hacer?";
 		// Si puede conectarse
-		System.out.println("¿Qué desea hacer?");
+		do {
+			System.out.println(mensaje);
+			mensaje = "¿Que desea hacer ahora?";
+
+			opcion = opciones();
+			switch (opcion) {
+			case 1:
+				MenusAlumno.aniadirUnNuevoAlumno();
+				break;
+			case 2:
+				MenusAlumno.matricularAsignaturaAlumno();
+				break;
+			case 3:
+
+				break;
+			case 4:
+
+				break;
+			case 5:
+
+				break;
+			case 6:
+
+				break;
+			case 7:
+
+				break;
+			case 8:
+
+				break;
+			case 9:
+
+				break;
+			case 10:
+
+				break;
+			case 11:
+
+				break;
+			case 12:
+
+				break;
+			case 13:
+
+				break;
+			case 14:
+				
+				break;
+
+			default:
+				break;
+			}
+
+		} while (opcion != 0);
+
+		System.out.println("Hasta pronto.");
 	}
 
 	/**
@@ -35,20 +96,22 @@ public class MenusBasicos {
 	 */
 	public static int opciones() {
 		System.out.println("1.- Añadir un nuevo alumno.");
-		System.out.println("2.- Añadir notas a un alumno.");
+		System.out.println("2.- Matricular un alumno en una asignatura.");
 		System.out.println("3.- Añadir un nueva asignatura.");
 		System.out.println("4.- Añadir un nuevo curso.");
-		System.out.println("5.- Modificar un alumno.");
-		System.out.println("6.- Modificar una asignatura.");
-		System.out.println("7.- Modificar un curso.");
-		System.out.println("8.- Consultar un alumno.");
-		System.out.println("9.- Consultar una asignatura.");
-		System.out.println("10.- Consultar un curso.");
-		System.out.println("11.- Eliminar un alumno.");
-		System.out.println("12.- Eliminar una asignatura.");
-		System.out.println("13.- Eliminar un curso.");
+		System.out.println("5.- Modificar datos de un alumno.");
+		System.out.println("6.- Modificar notas de una asignatura de un alumno.");
+		System.out.println("7.- Modificar una asignatura.");
+		System.out.println("8.- Modificar un curso.");
+		System.out.println("9.- Consultar un alumno.");
+		System.out.println("10.- Consultar una asignatura.");
+		System.out.println("11.- Consultar un curso.");
+		System.out.println("12.- Eliminar un alumno.");
+		System.out.println("13.- Eliminar una asignatura.");
+		System.out.println("14.- Eliminar un curso.");
+		System.out.println("0.- Salir del programa.");
 
-		return Introduce.valueInt(13, 1);
+		return Introduce.valueInt(13, 0);
 	}
 
 	/**

@@ -32,7 +32,6 @@ public class Curso {
 	 * @param turno
 	 */
 	public Curso(int id_curso, String descripcion, String nivel, char turno) {
-		super();
 		this.id_curso = id_curso;
 		this.descripcion = descripcion;
 		this.nivel = nivel;
