@@ -18,6 +18,7 @@ public class Direccion {
 //	CONSTRUCTORES
 	/**
 	 * Constructor que inicializa todos los atributos de la clase.
+	 * 
 	 * @param direccion
 	 * @param poblacion
 	 * @param codpostal
@@ -31,6 +32,16 @@ public class Direccion {
 	}
 
 //	METODOS
+	/**
+	 * Muestra los datos de la direccion por consola.
+	 */
+	public void mostrarDatos() {
+		System.out.println("Direccion: " + direccion);
+		System.out.println("Poblacion: " + poblacion);
+		System.out.println("Codigo Postal: " + codpostal);
+		System.out.println("Provincia: " + provincia);
+	}
+
 	/**
 	 * Valida si la direccion cumple con las condiciones de la base de datos.
 	 * 

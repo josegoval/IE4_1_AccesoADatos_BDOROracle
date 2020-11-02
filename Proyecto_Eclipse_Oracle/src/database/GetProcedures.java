@@ -37,7 +37,7 @@ public class GetProcedures {
 
 		if (con.validarConexion()) {
 			try {
-				cstmt = con.getConexion().prepareCall("{ CALL GET_ALUMNO(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ call GET_ALUMNO(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setString(1, dni);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
@@ -90,7 +90,7 @@ public class GetProcedures {
 		
 		if (con.validarConexion()) {
 			try {
-				cstmt = con.getConexion().prepareCall("{ CALL GET_NOTAS_ALUMNO(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ call GET_NOTAS_ALUMNO(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setString(1, alumno.getDni());
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
@@ -141,7 +141,7 @@ public class GetProcedures {
 		
 		if (con.validarConexion()) {
 			try {
-				cstmt = con.getConexion().prepareCall("{ CALL GET_ASIGNATURA(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ call GET_ASIGNATURA(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setInt(1, cod_asig);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
@@ -183,7 +183,7 @@ public class GetProcedures {
 
 		if (con.validarConexion()) {
 			try {
-				cstmt = con.getConexion().prepareCall("{ CALL GET_ASIGNATURA(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ call GET_ASIGNATURA(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setInt(1, id_curso);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);

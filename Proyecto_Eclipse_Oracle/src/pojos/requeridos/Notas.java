@@ -34,6 +34,18 @@ public class Notas {
 
 //	METODOS
 	/**
+	 * Muestra los datos por consola.
+	 */
+	public void mostrarDatos() {
+		asignatura.mostrarDatos();
+		System.out.println("Nota primera evaluacion: " + nota1ev);
+		System.out.println("Nota segunda evaluacion: " + nota2ev);
+		System.out.println("Nota tercera evaluacion: " + nota3ev);
+		System.out.println("Nota junio: " + notafjun);
+		System.out.println("Nota septiembre: " + notasept);
+	}
+
+	/**
 	 * Valida si la asignatura cumple con las condiciones de la base de datos.
 	 * 
 	 * @return true si las cumple, false si no.

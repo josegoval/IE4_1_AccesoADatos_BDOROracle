@@ -32,8 +32,7 @@ public class InsertFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion()
-						.prepareCall("{? = CALL CREATE_ALUMNO(?,?,?,?,?,?,?,?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call CREATE_ALUMNO(?,?,?,?,?,?,?,?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setString(2, alumno.getDni());
 				cstmt.setString(3, alumno.getNombre());
@@ -79,7 +78,7 @@ public class InsertFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL MATRICULAR_ASIGNATURA(?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call MATRICULAR_ASIGNATURA(?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setString(2, dni);
 				cstmt.setInt(3, cod_asig);
@@ -116,7 +115,7 @@ public class InsertFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL CREATE_ASIGNATURA(?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call CREATE_ASIGNATURA(?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, asignatura.getCod_asig());
 				cstmt.setString(3, asignatura.getNombre());
@@ -130,6 +129,7 @@ public class InsertFunctions {
 				}
 			} catch (SQLException e) {
 				resultado = false;
+				e.printStackTrace();
 			} finally {
 				ConexionDB.close(con.getConexion());
 				ConexionDB.close(cstmt);
@@ -154,7 +154,7 @@ public class InsertFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL CREATE_CURSO(?,?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call CREATE_CURSO(?,?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, curso.getId_curso());
 				cstmt.setString(3, curso.getDescripcion());
@@ -169,6 +169,7 @@ public class InsertFunctions {
 				}
 			} catch (SQLException e) {
 				resultado = false;
+				e.printStackTrace();
 			} finally {
 				ConexionDB.close(con.getConexion());
 				ConexionDB.close(cstmt);

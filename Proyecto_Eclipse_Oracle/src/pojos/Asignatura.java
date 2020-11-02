@@ -47,6 +47,15 @@ public class Asignatura {
 
 //	METODOS
 	/**
+	 * Muestra los datos por consola.
+	 */
+	public void mostrarDatos() {
+		System.out.println("Codigo de asignatura: " + cod_asig);
+		System.out.println("Nombre de la asignatura: " + nombre);
+		System.out.println("Tipo de asignatura: " + tipo.getTipo());
+	}
+
+	/**
 	 * Valida si el codigo de la asignatura cumple con las condiciones de la base de
 	 * datos.
 	 * 

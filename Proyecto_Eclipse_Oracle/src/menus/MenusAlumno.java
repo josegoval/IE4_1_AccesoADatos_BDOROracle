@@ -3,6 +3,7 @@ package menus;
 import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import database.DeleteFunctions;
 import database.GetProcedures;
 import database.InsertFunctions;
 import database.UpdateFunctions;
@@ -191,6 +192,19 @@ public class MenusAlumno {
 	}
 
 	/**
+	 * Menu interactivo que muestra los datos de un alumno.
+	 */
+	public static void consultarAlumno() {
+		Alumno alumno = getAlumno();
+
+		if (alumno == null) {
+			System.out.println("El alumno no existe o hubo algun error.");
+		} else {
+			alumno.mostrarDatos();
+		}
+	}
+
+	/**
 	 * Metodo interactivo que lee un alumno de la base de datos.
 	 * 
 	 * @return Alumno leido, o null si hubo algun error.
@@ -202,5 +216,50 @@ public class MenusAlumno {
 		alumno = GetProcedures.getAlumno(Introduce.stringRange(10, 8));
 
 		return alumno;
+	}
+
+	/**
+	 * Menu interactivo para eliminar una alumno de la base de datos.
+	 */
+	public static void eliminarAlumno() {
+		Alumno alumno = getAlumno();
+
+		if (alumno == null) {
+			System.out.println("El alumno no existe o hubo algun error.");
+		} else {
+			if (DeleteFunctions.deleteAlumno(alumno)) {
+				System.out.println("Alumno eliminado con exito.");
+			} else {
+				System.out.println("No se pudo eliminar al alumno.");
+			}
+		}
+	}
+
+	/**
+	 * Menu interactivo para eliminar una asignatura del alumno de la base de datos.
+	 */
+	public static void eliminarAsignaturaAlumno() {
+		AtomicInteger indice = new AtomicInteger(0);
+		int elegida;
+		Alumno alumno = getAlumno();
+
+		if (alumno == null) {
+			System.out.println("El alumno no existe o hubo algun error.");
+		} else {
+			if (alumno.getNotas().isEmpty()) {
+				System.out.println("El alumno no esta matriculado en ninguna asignatura.");
+			} else {
+				System.out.println("¿Que asignatura desea eliminar?");
+				alumno.getNotas().forEach(notas -> {
+					System.out.println(indice.getAndIncrement() + "- " + notas.getAsignatura().getCod_asig());
+				});
+				elegida = Introduce.valueInt(alumno.getNotas().size() - 1, 0);
+				if (DeleteFunctions.deleteAlumnoAsignatura(alumno, alumno.getNotas().get(elegida).getAsignatura())) {
+					System.out.println("Asignatura eliminada del alumno con exito.");
+				} else {
+					System.out.println("No se pudo eliminar la asignatura.");
+				}
+			}
+		}
 	}
 }

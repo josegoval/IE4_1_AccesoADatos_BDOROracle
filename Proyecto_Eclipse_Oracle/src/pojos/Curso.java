@@ -40,6 +40,16 @@ public class Curso {
 
 //	METODOS
 	/**
+	 * Muestra los datos del curso por consola.
+	 */
+	public void mostrarDatos() {
+		System.out.println("ID curso: " + id_curso);
+		System.out.println("Descripcion: " + descripcion);
+		System.out.println("Nivel: " + nivel);
+		System.out.println("Turno: " + turno.getTurno());
+	}
+
+	/**
 	 * Valida si el curso cumple con las condiciones de la base de datos.
 	 * 
 	 * @return true si las cumple, false si no.

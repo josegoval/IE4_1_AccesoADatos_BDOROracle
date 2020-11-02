@@ -59,25 +59,28 @@ public class MenusBasicos {
 				MenusAsignatura.modificarAsignatura();
 				break;
 			case 8:
-
+				MenusCurso.modificarCurso();
 				break;
 			case 9:
-
+				MenusAlumno.consultarAlumno();
 				break;
 			case 10:
-
+				MenusAsignatura.consultarAsignatura();
 				break;
 			case 11:
-
+				MenusCurso.consultarCurso();
 				break;
 			case 12:
-
+				MenusAlumno.eliminarAlumno();
 				break;
 			case 13:
-
+				MenusAlumno.eliminarAsignaturaAlumno();
 				break;
 			case 14:
-				
+				MenusAsignatura.eliminarAsignatura();
+				break;
+			case 15:
+				MenusCurso.eliminarCurso();
 				break;
 
 			default:
@@ -107,8 +110,9 @@ public class MenusBasicos {
 		System.out.println("10.- Consultar una asignatura.");
 		System.out.println("11.- Consultar un curso.");
 		System.out.println("12.- Eliminar un alumno.");
-		System.out.println("13.- Eliminar una asignatura.");
-		System.out.println("14.- Eliminar un curso.");
+		System.out.println("13.- Eliminar asignatura de alumno.");
+		System.out.println("14.- Eliminar una asignatura.");
+		System.out.println("15.- Eliminar un curso.");
 		System.out.println("0.- Salir del programa.");
 
 		return Introduce.valueInt(13, 0);

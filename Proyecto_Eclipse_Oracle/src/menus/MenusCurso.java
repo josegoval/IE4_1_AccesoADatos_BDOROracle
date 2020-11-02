@@ -1,5 +1,6 @@
 package menus;
 
+import database.DeleteFunctions;
 import database.GetProcedures;
 import database.InsertFunctions;
 import database.UpdateFunctions;
@@ -68,7 +69,7 @@ public class MenusCurso {
 			System.out.println("No se pudo actualizar el curso en la base de datos.");
 		}
 	}
-	
+
 	/**
 	 * Menu interactivo y guiado para elegir un turno.
 	 * 
@@ -106,5 +107,36 @@ public class MenusCurso {
 		curso = GetProcedures.getCurso(Introduce.valueInt(9999, 1000));
 
 		return curso;
+	}
+
+	/**
+	 * Menu interctivo y guiado para consultar la informacion de un curso
+	 */
+	public static void consultarCurso() {
+		Curso curso = getCurso();
+
+		if (curso == null) {
+			System.out.println("El curso no existe o hubo algun error.");
+		} else {
+			curso.mostrarDatos();
+		}
+	}
+
+	/**
+	 * Menu interactivo y guiado para eliminar un curso de la base de datos.
+	 */
+	public static void eliminarCurso() {
+		Curso curso = getCurso();
+
+		if (curso == null) {
+			System.out.println("El curso no existe o hubo algun error.");
+		} else {
+			if (DeleteFunctions.deleteCurso(curso)) {
+				System.out.println("Curso eliminado con exito.");
+			} else {
+				System.out.println("No se pudo eliminar el curso.");
+				System.out.println("Recuerde que debe eliminar todos los alumnos matriculados en dicho curso antes.");
+			}
+		}
 	}
 }

@@ -47,6 +47,22 @@ public class Alumno {
 
 //	METODOS
 	/**
+	 * Muestra los datos del alumno por consola.
+	 */
+	public void mostrarDatos() {
+		System.out.println("DNI: " + dni);
+		System.out.println("Nombre: " + nombre);
+		direccion.mostrarDatos();
+		System.out.println("Telefono 1: " + telefonos[0]);
+		System.out.println("Telefono 2: " + telefonos[1]);
+		System.out.println("Fecha de Nacimiento: " + fecha_nac.getDayOfMonth() + "-" + fecha_nac.getMonth() + "-"
+				+ fecha_nac.getYear());
+		curso.mostrarDatos();
+		System.out.println("Motrando todas las notas registradas:");
+		notas.stream().forEach(notas -> notas.mostrarDatos());
+	}
+
+	/**
 	 * Valida si el DNI cumple con las condiciones de la base de datos.
 	 * 
 	 * @return true si las cumple, false si no.

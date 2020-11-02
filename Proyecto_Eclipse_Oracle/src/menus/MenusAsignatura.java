@@ -1,5 +1,6 @@
 package menus;
 
+import database.DeleteFunctions;
 import database.GetProcedures;
 import database.InsertFunctions;
 import database.UpdateFunctions;
@@ -103,5 +104,38 @@ public class MenusAsignatura {
 		asignatura = GetProcedures.getAsignatura(Introduce.valueInt(9999, 1000));
 
 		return asignatura;
+	}
+
+	/**
+	 * Menu interctivo y guiado para mostrar los datos de la asignatura.
+	 */
+	public static void consultarAsignatura() {
+		Asignatura asignatura = getAsignatura();
+
+		if (asignatura == null) {
+			System.out.println("La asignatura no existe o hubo algun error.");
+		} else {
+			asignatura.mostrarDatos();
+		}
+
+	}
+
+	/**
+	 * Menu interctivo y guiado eliminar una asignatura de la base de datos.
+	 */
+	public static void eliminarAsignatura() {
+		Asignatura asignatura = getAsignatura();
+
+		if (asignatura == null) {
+			System.out.println("La asignatura no existe o hubo algun error.");
+		} else {
+			if (DeleteFunctions.deleteAsignatura(asignatura)) {
+				System.out.println("Asignatura eliminada con exito.");
+			} else {
+				System.out.println("No se pudo eliminar la asignatura.");
+				System.out.println("Recuerde que debe eliminar todos los alumnos matriculados en dicha asignatura antes.");
+			}
+		}
+
 	}
 }

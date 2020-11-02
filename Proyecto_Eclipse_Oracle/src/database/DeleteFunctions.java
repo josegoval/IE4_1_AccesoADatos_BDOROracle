@@ -30,7 +30,7 @@ public class DeleteFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL DELETE_ALUMNO(?)}");
+				cstmt = con.getConexion().prepareCall("{? = call DELETE_ALUMNO(?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setString(2, alumno.getDni());
 				// Se ejecuta
@@ -65,7 +65,7 @@ public class DeleteFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL DELETE_ALUMNO_ASIGNATURA(?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call DELETE_ALUMNO_ASIGNATURA(?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setString(2, alumno.getDni());
 				cstmt.setInt(3, asignatura.getCod_asig());
@@ -100,7 +100,7 @@ public class DeleteFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL DELETE_ASIGNATURA(?)}");
+				cstmt = con.getConexion().prepareCall("{? = call DELETE_ASIGNATURA(?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, asignatura.getCod_asig());
 				// Se ejecuta
@@ -134,7 +134,7 @@ public class DeleteFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL DELETE_CURSO(?)}");
+				cstmt = con.getConexion().prepareCall("{? = call DELETE_CURSO(?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, curso.getId_curso());
 				// Se ejecuta

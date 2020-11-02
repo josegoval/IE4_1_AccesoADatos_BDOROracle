@@ -32,7 +32,7 @@ public class UpdateFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_ALUMNO(?,?,?,?,?,?,?,?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call UPDATE_ALUMNO(?,?,?,?,?,?,?,?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setString(2, alumno.getDni());
 				cstmt.setString(3, alumno.getNombre());
@@ -78,7 +78,7 @@ public class UpdateFunctions {
 			if (con.validarConexion()) {
 				try {
 					// Se prepara
-					cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_NOTAS(?,?,?,?,?,?,?)}");
+					cstmt = con.getConexion().prepareCall("{? = call UPDATE_NOTAS(?,?,?,?,?,?,?)}");
 					cstmt.registerOutParameter(1, Types.INTEGER);
 					cstmt.setString(2, alumno.getDni());
 					cstmt.setInt(3, notas.getAsignatura().getCod_asig());
@@ -120,7 +120,7 @@ public class UpdateFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_ASIGNATURA(?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call UPDATE_ASIGNATURA(?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, asignatura.getCod_asig());
 				cstmt.setString(3, asignatura.getNombre());
@@ -156,7 +156,7 @@ public class UpdateFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_CURSO(?,?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = call UPDATE_CURSO(?,?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, curso.getId_curso());
 				cstmt.setString(3, curso.getDescripcion());
