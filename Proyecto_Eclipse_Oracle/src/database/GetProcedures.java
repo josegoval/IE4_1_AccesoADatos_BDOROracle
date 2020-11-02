@@ -3,9 +3,7 @@ package database;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import oracle.jdbc.OracleType;
 import oracle.jdbc.OracleTypes;
 import pojos.Alumno;
 import pojos.Asignatura;
@@ -14,7 +12,6 @@ import pojos.enums.TipoAsignatura;
 import pojos.enums.Turno;
 import pojos.requeridos.Direccion;
 import pojos.requeridos.Notas;
-import utiles.validadores;
 
 /**
  * Clase dedicadas a los procedimientos get de la base de datos.
@@ -22,7 +19,7 @@ import utiles.validadores;
  * @author Jose Manuel Gomez Martinez
  * @since 01/11/2020
  */
-public class getProcedures {
+public class GetProcedures {
 
 //	https://mkyong.com/jdbc/jdbc-callablestatement-stored-procedure-out-parameter-example/
 
@@ -36,10 +33,11 @@ public class getProcedures {
 		Alumno alumno = null;
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
+		CallableStatement cstmt = null;
 
 		if (con.validarConexion()) {
 			try {
-				CallableStatement cstmt = con.getConexion().prepareCall("{ CALL GET_ALUMNO(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ CALL GET_ALUMNO(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setString(1, dni);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
@@ -68,6 +66,9 @@ public class getProcedures {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 				alumno = null;
+			} finally {
+				ConexionDB.close(con.getConexion());
+				ConexionDB.close(cstmt);
 			}
 
 		}
@@ -85,10 +86,11 @@ public class getProcedures {
 		boolean resultado = false;
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
-
+		CallableStatement cstmt = null;
+		
 		if (con.validarConexion()) {
 			try {
-				CallableStatement cstmt = con.getConexion().prepareCall("{ CALL GET_NOTAS_ALUMNO(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ CALL GET_NOTAS_ALUMNO(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setString(1, alumno.getDni());
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
@@ -109,12 +111,15 @@ public class getProcedures {
 					// añado las notas al alumno
 					alumno.getNotas().add(notas);
 				}
-				
+
 				resultado = true;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 				resultado = false;
+			} finally {
+				ConexionDB.close(con.getConexion());
+				ConexionDB.close(cstmt);
 			}
 
 		}
@@ -132,10 +137,11 @@ public class getProcedures {
 		Asignatura asignatura = null;
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
-
+		CallableStatement cstmt = null;
+		
 		if (con.validarConexion()) {
 			try {
-				CallableStatement cstmt = con.getConexion().prepareCall("{ CALL GET_ASIGNATURA(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ CALL GET_ASIGNATURA(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setInt(1, cod_asig);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
@@ -153,6 +159,9 @@ public class getProcedures {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 				asignatura = null;
+			} finally {
+				ConexionDB.close(con.getConexion());
+				ConexionDB.close(cstmt);
 			}
 
 		}
@@ -170,10 +179,11 @@ public class getProcedures {
 		Curso curso = null;
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
+		CallableStatement cstmt = null;
 
 		if (con.validarConexion()) {
 			try {
-				CallableStatement cstmt = con.getConexion().prepareCall("{ CALL GET_ASIGNATURA(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ CALL GET_ASIGNATURA(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setInt(1, id_curso);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
@@ -192,6 +202,9 @@ public class getProcedures {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 				curso = null;
+			} finally {
+				ConexionDB.close(con.getConexion());
+				ConexionDB.close(cstmt);
 			}
 
 		}

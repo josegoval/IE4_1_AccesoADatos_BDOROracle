@@ -1,5 +1,6 @@
 package database;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -39,7 +40,25 @@ public class ConexionDB {
 	 */
 	public static void close(Connection con) {
 		try {
-			con.close();
+			if (con != null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Cierra la conexion introducida.
+	 * 
+	 * @param con Conexion a cerrar.
+	 */
+	public static void close(CallableStatement cstmt) {
+		try {
+			if (cstmt != null) {
+				cstmt.close();
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -48,6 +67,7 @@ public class ConexionDB {
 
 	/**
 	 * Valida la conexion y muestra un mensaje informando de si hubo un error.
+	 * 
 	 * @return false si no se pudo conectar, true si se pudo conectar.
 	 */
 	public boolean validarConexion() {
@@ -58,7 +78,7 @@ public class ConexionDB {
 			return true;
 		}
 	}
-	
+
 //	GETTERS & SETTERS
 	public Connection getConexion() {
 		return conexion;

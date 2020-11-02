@@ -4,27 +4,27 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import pojos.Alumno;
 import pojos.Asignatura;
 import pojos.Curso;
 
 /**
- * Clase dedicadas a las funciones de insert de la base de datos.
+ * Clase dedicada a las funciones de Update de la base de datos.
  * 
  * @author Jose Manuel Gomez Martinez
- * @since 01/11/2020
+ * @since 02/11/2020
  */
-public class InsertFunctions {
+public class UpdateFunctions {
 
 	/**
-	 * Inserta el alumno en la base de datos.
+	 * Actualiza el alumno en la base de datos.
 	 * 
-	 * @param alumno Alumno a insertar.
+	 * @param alumno Alumno a actualizar.
 	 * @return true si se realizo con exito, false si hubo algun error.
 	 */
-	public static boolean createAlumno(Alumno alumno) {
-		boolean resultado = false;
+	public static boolean updateAlumno(Alumno alumno) {
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
 		CallableStatement cstmt = null;
@@ -32,8 +32,7 @@ public class InsertFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion()
-						.prepareCall("{? = CALL CREATE_ALUMNO(?,?,?,?,?,?,?,?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_ALUMNO(?,?,?,?,?,?,?,?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setString(2, alumno.getDni());
 				cstmt.setString(3, alumno.getNombre());
@@ -48,30 +47,72 @@ public class InsertFunctions {
 				// Se ejecuta
 				cstmt.execute();
 				if (cstmt.getInt(1) == 1) {
-					resultado = true;
-				} else {
-					resultado = false;
+					return true;
 				}
+				return false;
 			} catch (SQLException e) {
-				resultado = false;
+				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
 				ConexionDB.close(cstmt);
 			}
 		}
 
-		return resultado;
+		return false;
 	}
 
 	/**
-	 * Matricula al alumno en la asignatura dada, en la base de datos.
+	 * Actualiza todas las notas del alumno en la base de datos.
 	 * 
-	 * @param dni      dni del alumno a matricular.
-	 * @param cod_asig codigo de la asignatura a matricular.
+	 * @param alumno Alumno al que actualizar las notas.
 	 * @return true si se realizo con exito, false si hubo algun error.
 	 */
-	public static boolean matricularAsignaturas(String dni, int cod_asig) {
-		boolean resultado = false;
+	public static boolean updateNotas(Alumno alumno) {
+		AtomicBoolean resultado = new AtomicBoolean(false);
+		// Recorro todas las notas y las introduzco individualmente.
+		alumno.getNotas().stream().forEach(notas -> {
+			ConexionDB con = new ConexionDB();
+			con.establecerConexion();
+			CallableStatement cstmt = null;
+			// Si se pudo conectar...
+			if (con.validarConexion()) {
+				try {
+					// Se prepara
+					cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_NOTAS(?,?,?,?,?,?,?)}");
+					cstmt.registerOutParameter(1, Types.INTEGER);
+					cstmt.setString(2, alumno.getDni());
+					cstmt.setInt(3, notas.getAsignatura().getCod_asig());
+					cstmt.setFloat(4, notas.getNota1ev());
+					cstmt.setFloat(5, notas.getNota2ev());
+					cstmt.setFloat(6, notas.getNota3ev());
+					cstmt.setFloat(7, notas.getNotafjun());
+					cstmt.setFloat(8, notas.getNotasept());
+					// Se ejecuta
+					cstmt.execute();
+					if (cstmt.getInt(1) == 1) {
+						resultado.set(true);
+					} else {
+						resultado.set(false);
+					}
+				} catch (SQLException e) {
+					resultado.set(false);
+				} finally {
+					ConexionDB.close(con.getConexion());
+					ConexionDB.close(cstmt);
+				}
+			}
+		});
+
+		return resultado.get();
+	}
+
+	/**
+	 * Actualiza la asignatura en la base de datos.
+	 * 
+	 * @param asignatura Asignatura a actualizar.
+	 * @return true si se realizo con exito, false si hubo algun error.
+	 */
+	public static boolean updateAsignatura(Asignatura asignatura) {
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
 		CallableStatement cstmt = null;
@@ -79,44 +120,7 @@ public class InsertFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL MATRICULAR_ASIGNATURA(?,?)}");
-				cstmt.registerOutParameter(1, Types.INTEGER);
-				cstmt.setString(2, dni);
-				cstmt.setInt(3, cod_asig);
-				// Se ejecuta
-				cstmt.execute();
-				if (cstmt.getInt(1) == 1) {
-					resultado = true;
-				} else {
-					resultado = false;
-				}
-			} catch (SQLException e) {
-				resultado = false;
-			} finally {
-				ConexionDB.close(con.getConexion());
-				ConexionDB.close(cstmt);
-			}
-		}
-
-		return resultado;
-	}
-
-	/**
-	 * Crea e inserta la asignatura en la base de datos.
-	 * 
-	 * @param asignatura Asignatura a registrar.
-	 * @return true si se realizo con exito, false si hubo algun error.
-	 */
-	public static boolean createAsignatura(Asignatura asignatura) {
-		boolean resultado = false;
-		ConexionDB con = new ConexionDB();
-		con.establecerConexion();
-		CallableStatement cstmt = null;
-		// Si se pudo conectar...
-		if (con.validarConexion()) {
-			try {
-				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL CREATE_ASIGNATURA(?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_ASIGNATURA(?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, asignatura.getCod_asig());
 				cstmt.setString(3, asignatura.getNombre());
@@ -124,29 +128,27 @@ public class InsertFunctions {
 				// Se ejecuta
 				cstmt.execute();
 				if (cstmt.getInt(1) == 1) {
-					resultado = true;
-				} else {
-					resultado = false;
+					return true;
 				}
+				return false;
 			} catch (SQLException e) {
-				resultado = false;
+				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
 				ConexionDB.close(cstmt);
 			}
 		}
 
-		return resultado;
+		return false;
 	}
 
 	/**
-	 * Crea e inserta el curso en la base de datos.
+	 * Actualiza el curso en la base de datos.
 	 * 
-	 * @param curso Curso a registrar.
+	 * @param curso Curso a actualizar.
 	 * @return true si se realizo con exito, false si hubo algun error.
 	 */
 	public static boolean createCurso(Curso curso) {
-		boolean resultado = false;
 		ConexionDB con = new ConexionDB();
 		con.establecerConexion();
 		CallableStatement cstmt = null;
@@ -154,7 +156,7 @@ public class InsertFunctions {
 		if (con.validarConexion()) {
 			try {
 				// Se prepara
-				cstmt = con.getConexion().prepareCall("{? = CALL CREATE_CURSO(?,?,?,?)}");
+				cstmt = con.getConexion().prepareCall("{? = CALL UPDATE_CURSO(?,?,?,?)}");
 				cstmt.registerOutParameter(1, Types.INTEGER);
 				cstmt.setInt(2, curso.getId_curso());
 				cstmt.setString(3, curso.getDescripcion());
@@ -163,18 +165,17 @@ public class InsertFunctions {
 				// Se ejecuta
 				cstmt.execute();
 				if (cstmt.getInt(1) == 1) {
-					resultado = true;
-				} else {
-					resultado = false;
+					return true;
 				}
+				return false;
 			} catch (SQLException e) {
-				resultado = false;
+				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
 				ConexionDB.close(cstmt);
 			}
 		}
 
-		return resultado;
+		return false;
 	}
 }
