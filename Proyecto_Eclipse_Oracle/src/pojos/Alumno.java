@@ -42,6 +42,7 @@ public class Alumno {
 		this.telefonos = telefonos;
 		this.fecha_nac = fecha_nac;
 		this.curso = curso;
+		this.notas = new ArrayList<Notas>();
 	}
 
 //	METODOS
