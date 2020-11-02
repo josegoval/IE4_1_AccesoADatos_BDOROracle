@@ -121,7 +121,7 @@ public class GetProcedures {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
-				e.printStackTrace();
+//				e.printStackTrace();
 				resultado = false;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -165,7 +165,7 @@ public class GetProcedures {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
-				e.printStackTrace();
+//				e.printStackTrace();
 				asignatura = null;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -210,7 +210,7 @@ public class GetProcedures {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
-				e.printStackTrace();
+//				e.printStackTrace();
 				curso = null;
 			} finally {
 				ConexionDB.close(con.getConexion());

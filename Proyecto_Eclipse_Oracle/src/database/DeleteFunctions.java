@@ -40,7 +40,7 @@ public class DeleteFunctions {
 				}
 				return false;
 			} catch (SQLException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -77,7 +77,7 @@ public class DeleteFunctions {
 				}
 				return false;
 			} catch (SQLException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -112,7 +112,7 @@ public class DeleteFunctions {
 				}
 				return false;
 			} catch (SQLException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -147,7 +147,7 @@ public class DeleteFunctions {
 				}
 				return false;
 			} catch (SQLException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
