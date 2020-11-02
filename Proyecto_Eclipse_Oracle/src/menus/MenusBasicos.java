@@ -53,10 +53,10 @@ public class MenusBasicos {
 				MenusAlumno.modificarDatosAlumno();
 				break;
 			case 6:
-
+				MenusAlumno.modificarNotasAsignaturaAlumno();
 				break;
 			case 7:
-
+				MenusAsignatura.modificarAsignatura();
 				break;
 			case 8:
 

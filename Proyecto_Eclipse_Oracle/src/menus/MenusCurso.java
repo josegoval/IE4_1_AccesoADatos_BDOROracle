@@ -1,6 +1,8 @@
 package menus;
 
+import database.GetProcedures;
 import database.InsertFunctions;
+import database.UpdateFunctions;
 import ownLibrary.Introduce;
 import pojos.Curso;
 import pojos.enums.Turno;
@@ -35,6 +37,39 @@ public class MenusCurso {
 	}
 
 	/**
+	 * Menu interctivo y guiado para modificar una asignatura.
+	 */
+	public static void modificarCurso() {
+		Curso curso = getCurso();
+
+		if (curso == null) {
+			System.out.println("El curso no existe o hubo algun error.");
+		} else {
+			System.out.println("¿Desea cambiar la descripcion?");
+			if (MenusBasicos.introducirSiNo()) {
+				System.out.println("Introduzca la nueva descripcion");
+				curso.setDescripcion(Introduce.stringRange(60, 2));
+			}
+			System.out.println("¿Desea cambiar el nivel?");
+			if (MenusBasicos.introducirSiNo()) {
+				System.out.println("Introduzca el nuevo nivel");
+				curso.setNivel(Introduce.stringRange(3, 1));
+			}
+			System.out.println("¿Desea cambiar el turno?");
+			if (MenusBasicos.introducirSiNo()) {
+				curso.setTurno(introducirTurno());
+			}
+		}
+
+		// Se actualiza en la base de datos:
+		if (UpdateFunctions.updateCurso(curso)) {
+			System.out.println("Curso actualizado con exito.");
+		} else {
+			System.out.println("No se pudo actualizar el curso en la base de datos.");
+		}
+	}
+	
+	/**
 	 * Menu interactivo y guiado para elegir un turno.
 	 * 
 	 * @return Turno escogido.
@@ -57,5 +92,19 @@ public class MenusCurso {
 		}
 
 		return turno;
+	}
+
+	/**
+	 * Metodo interactivo que lee un curso de la base de datos.
+	 * 
+	 * @return Curso leido, o null si hubo algun error.
+	 */
+	public static Curso getCurso() {
+		Curso curso;
+
+		System.out.println("Introduzca el id del curso:");
+		curso = GetProcedures.getCurso(Introduce.valueInt(9999, 1000));
+
+		return curso;
 	}
 }
