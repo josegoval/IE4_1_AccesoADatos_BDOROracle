@@ -115,7 +115,7 @@ public class MenusBasicos {
 		System.out.println("15.- Eliminar un curso.");
 		System.out.println("0.- Salir del programa.");
 
-		return Introduce.valueInt(13, 0);
+		return Introduce.valueInt(15, 0);
 	}
 
 	/**
@@ -129,9 +129,9 @@ public class MenusBasicos {
 		do {
 			System.out.println("¿Sí o no? (S/N)");
 			opcion = Introduce.stringRange(1, 1);
-		} while (!opcion.equalsIgnoreCase("y") && !opcion.equalsIgnoreCase("n"));
+		} while (!opcion.equalsIgnoreCase("s") && !opcion.equalsIgnoreCase("n"));
 
-		return opcion.equalsIgnoreCase("y");
+		return opcion.equalsIgnoreCase("s");
 	}
 
 	/**

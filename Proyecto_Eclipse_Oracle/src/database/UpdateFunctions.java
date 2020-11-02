@@ -51,6 +51,7 @@ public class UpdateFunctions {
 				}
 				return false;
 			} catch (SQLException e) {
+				e.printStackTrace();
 				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -95,6 +96,7 @@ public class UpdateFunctions {
 						resultado.set(false);
 					}
 				} catch (SQLException e) {
+					e.printStackTrace();
 					resultado.set(false);
 				} finally {
 					ConexionDB.close(con.getConexion());
@@ -132,6 +134,7 @@ public class UpdateFunctions {
 				}
 				return false;
 			} catch (SQLException e) {
+				e.printStackTrace();
 				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -169,6 +172,7 @@ public class UpdateFunctions {
 				}
 				return false;
 			} catch (SQLException e) {
+				e.printStackTrace();
 				return false;
 			} finally {
 				ConexionDB.close(con.getConexion());

@@ -215,6 +215,9 @@ public class MenusAlumno {
 		System.out.println("Introduzca el dni del alumno:");
 		alumno = GetProcedures.getAlumno(Introduce.stringRange(10, 8));
 
+		// Añado las notas
+		GetProcedures.getNotas(alumno);
+		
 		return alumno;
 	}
 

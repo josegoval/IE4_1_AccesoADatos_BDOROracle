@@ -41,6 +41,7 @@ public class GetProcedures {
 				// Registro entradas y salidas
 				cstmt.setString(1, dni);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+				cstmt.execute();
 				// Recojo la salida
 				ResultSet rs = (ResultSet) cstmt.getObject(2);
 				// Construyo el objeto
@@ -65,6 +66,7 @@ public class GetProcedures {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
+//				e.printStackTrace();
 				alumno = null;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -88,34 +90,38 @@ public class GetProcedures {
 		con.establecerConexion();
 		CallableStatement cstmt = null;
 		
-		if (con.validarConexion()) {
+		if (con.validarConexion() && alumno != null) {
 			try {
 				cstmt = con.getConexion().prepareCall("{ call GET_NOTAS_ALUMNO(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setString(1, alumno.getDni());
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+				cstmt.execute();
 				// Recojo la salida
 				ResultSet rs = (ResultSet) cstmt.getObject(2);
 				// Construyo el objeto
 				while (rs.next()) {
-					// Cojo los datos de la tupla
-					Notas notas = new Notas(new Asignatura(), -1, -1, -1, -1, -1);
-					notas.getAsignatura().setCod_asig(rs.getInt(1));
-					notas.getAsignatura().setNombre(rs.getString(2));
-					notas.getAsignatura().setTipo(TipoAsignatura.valueOf(rs.getString(3)));
-					notas.setNota1ev(rs.getFloat(4));
-					notas.setNota2ev(rs.getFloat(5));
-					notas.setNota3ev(rs.getFloat(6));
-					notas.setNotafjun(rs.getFloat(7));
-					notas.setNotasept(rs.getFloat(8));
-					// añado las notas al alumno
-					alumno.getNotas().add(notas);
+					if (rs.getString(1) != null) {
+						// Cojo los datos de la tupla
+						Notas notas = new Notas(new Asignatura(), -1, -1, -1, -1, -1);
+						notas.getAsignatura().setCod_asig(rs.getInt(1));
+						notas.getAsignatura().setNombre(rs.getString(2));
+						notas.getAsignatura().setTipo(TipoAsignatura.valueOf(rs.getString(3).replace(" ", "_")));
+						notas.setNota1ev(rs.getFloat(4));
+						notas.setNota2ev(rs.getFloat(5));
+						notas.setNota3ev(rs.getFloat(6));
+						notas.setNotafjun(rs.getFloat(7));
+						notas.setNotasept(rs.getFloat(8));
+						// añado las notas al alumno
+						alumno.getNotas().add(notas);
+					}
 				}
 
 				resultado = true;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
+				e.printStackTrace();
 				resultado = false;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -145,6 +151,7 @@ public class GetProcedures {
 				// Registro entradas y salidas
 				cstmt.setInt(1, cod_asig);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+				cstmt.execute();
 				// Recojo la salida
 				ResultSet rs = (ResultSet) cstmt.getObject(2);
 				// Construyo el objeto
@@ -153,11 +160,12 @@ public class GetProcedures {
 					// Cojo los datos de la tupla
 					asignatura.setCod_asig(rs.getInt(1));
 					asignatura.setNombre(rs.getString(2));
-					asignatura.setTipo(TipoAsignatura.valueOf(rs.getString(3)));
+					asignatura.setTipo(TipoAsignatura.valueOf(rs.getString(3).replace(" ", "_")));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
+				e.printStackTrace();
 				asignatura = null;
 			} finally {
 				ConexionDB.close(con.getConexion());
@@ -183,10 +191,11 @@ public class GetProcedures {
 
 		if (con.validarConexion()) {
 			try {
-				cstmt = con.getConexion().prepareCall("{ call GET_ASIGNATURA(?, ?)}");
+				cstmt = con.getConexion().prepareCall("{ call GET_CURSO(?, ?)}");
 				// Registro entradas y salidas
 				cstmt.setInt(1, id_curso);
 				cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+				cstmt.execute();
 				// Recojo la salida
 				ResultSet rs = (ResultSet) cstmt.getObject(2);
 				// Construyo el objeto
@@ -201,6 +210,7 @@ public class GetProcedures {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
+				e.printStackTrace();
 				curso = null;
 			} finally {
 				ConexionDB.close(con.getConexion());

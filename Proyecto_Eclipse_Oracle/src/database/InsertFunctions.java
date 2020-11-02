@@ -53,6 +53,7 @@ public class InsertFunctions {
 				}
 			} catch (SQLException e) {
 				resultado = false;
+				e.printStackTrace();
 			} finally {
 				ConexionDB.close(con.getConexion());
 				ConexionDB.close(cstmt);
@@ -91,6 +92,7 @@ public class InsertFunctions {
 				}
 			} catch (SQLException e) {
 				resultado = false;
+				e.printStackTrace();
 			} finally {
 				ConexionDB.close(con.getConexion());
 				ConexionDB.close(cstmt);
